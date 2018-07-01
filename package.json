@@ -1,0 +1,22 @@
+{
+  "name": "@abskmj/exchangeratesapi",
+  "version": "1.0.0",
+  "description": "Node client for exchangeratesapi.io",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test.js"
+  },
+  "keywords": [
+    "client",
+    "exchangeratesapi"
+  ],
+  "author": "abskmj@gmail.com",
+  "license": "MIT",
+  "dependencies": {
+    "@abskmj/cligen": "1.0.0"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^5.2.0"
+  }
+}
