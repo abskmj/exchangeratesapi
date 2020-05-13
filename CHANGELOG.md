@@ -1,6 +1,6 @@
 # Changelog
 
-## [1.1.0 Unreleased]
+## [1.1.0]
 ### Fixed
 - Fix API base url from `https://exchangeratesapi.io/api` to `https://api.exchangeratesapi.io`
 - Fix NPM audit issues
