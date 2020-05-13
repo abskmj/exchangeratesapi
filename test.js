@@ -7,7 +7,7 @@ describe("Client", function() {
     it('should return all rates of current date', function() {
         return exchange().then(response => {
             expect(response.status).to.equals(200);
-            expect(response.request.url).to.equals('https://exchangeratesapi.io/api/latest');
+            expect(response.request.url).to.equals('https://api.exchangeratesapi.io/latest');
         })
     });
 
@@ -15,7 +15,7 @@ describe("Client", function() {
         let particular = "2018-01-01";
         return exchange({ date: particular }).then(response => {
             expect(response.status).to.equals(200);
-            expect(response.request.url).to.equals(`https://exchangeratesapi.io/api/${particular}`);
+            expect(response.request.url).to.equals(`https://api.exchangeratesapi.io/${particular}`);
         })
     });
 

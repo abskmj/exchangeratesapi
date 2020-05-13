@@ -1,6 +1,6 @@
 module.exports.getClient = options => {
     return require("@abskmj/cligen").getClient({
-        "baseUrl": "https://exchangeratesapi.io/api",
+        "baseUrl": "https://api.exchangeratesapi.io",
         "operations": {
             "rates": {
                 "uri": "/{date}",
