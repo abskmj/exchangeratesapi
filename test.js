@@ -1,9 +1,9 @@
-const expect = require('chai').expect
-const exchange = require('./index').getClient({ mock: true })
+const { expect } = require('chai')
+const exchange = require('./index')
 
 describe('Client', function () {
   it('should return all rates of current date', function () {
-    return exchange().then(response => {
+    return exchange.rates().then(response => {
       expect(response.status).to.equals(200)
       expect(response.request.url).to.equals('https://api.exchangeratesapi.io/latest')
     })
@@ -11,7 +11,7 @@ describe('Client', function () {
 
   it('should return all rates of a particular date', function () {
     const particular = '2018-01-01'
-    return exchange({ date: particular }).then(response => {
+    return exchange.rates({ date: particular }).then(response => {
       expect(response.status).to.equals(200)
       expect(response.request.url).to.equals(`https://api.exchangeratesapi.io/${particular}`)
     })
@@ -19,7 +19,7 @@ describe('Client', function () {
 
   it('should return all rates of a particular currency', function () {
     const particular = 'USD'
-    return exchange({ base: particular }).then(response => {
+    return exchange.rates({ base: particular }).then(response => {
       expect(response.status).to.equals(200)
       expect(response.data.base).to.equals(particular)
     })
@@ -27,7 +27,7 @@ describe('Client', function () {
 
   it('should return particular rates of a particular currency', function () {
     const particular = 'USD'
-    return exchange({
+    return exchange.rates({
       base: particular,
       symbols: 'EUR,GBP'
     }).then(response => {
