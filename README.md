@@ -1,5 +1,15 @@
 # Node client for exchangeratesapi.io
 
+## Installation
+
+### NPM Registry
+```bash
+npm install --save @abskmj/exchangeratesapi
+```
+
+### Github Package
+This module is also available at [Github Package](https://github.com/abskmj/exchangeratesapi/packages/222586)
+
 ## Get all the rates on current date
 ```javascript
 let exchange = require('@abskmj/exchangeratesapi').getClient();
