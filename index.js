@@ -20,11 +20,12 @@ module.exports = require('@abskmj/cligen').getClient({
     },
     history: {
       uri: '/history',
-      query: {
-        path: {
+      data: {
+        query: {
           parameters: [
             { name: 'start_at' },
             { name: 'end_at' },
+            { name: 'base' },
             { name: 'symbols' }
           ]
         }
