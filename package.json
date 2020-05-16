@@ -4,19 +4,31 @@
   "description": "Node client for exchangeratesapi.io",
   "main": "index.js",
   "scripts": {
-    "test": "mocha test.js"
+    "test": "mocha test.js",
+    "doc": "documentation build index.js -f md > API.md"
   },
   "keywords": [
     "client",
     "exchangeratesapi"
   ],
   "author": "abskmj@gmail.com",
+  "homepage": "https://github.com/abskmj/exchangeratesapi",
+  "repository": "github:abskmj/exchangeratesapi",
   "license": "MIT",
   "dependencies": {
     "@abskmj/cligen": "1.0.0"
   },
   "devDependencies": {
     "chai": "^4.1.2",
-    "mocha": "^7.1.2"
+    "documentation": "^13.0.0",
+    "jsdoc": "^3.6.4",
+    "jsdoc-to-markdown": "^5.0.3",
+    "mocha": "^7.1.2",
+    "standard": "^14.3.4"
+  },
+  "standard": {
+    "env": [
+      "mocha"
+    ]
   }
 }
