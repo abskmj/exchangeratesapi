@@ -1,3 +1,5 @@
+![npm (scoped)](https://img.shields.io/npm/v/@abskmj/exchangeratesapi?label=NPM) ![NPM](https://img.shields.io/npm/l/@abskmj/exchangeratesapi?label=License) ![npm](https://img.shields.io/npm/dt/@abskmj/exchangeratesapi?label=Downloads)
+
 # Node client for exchangeratesapi.io
 Unofficial node.js client for [exchangeratesapi.io](https://exchangeratesapi.io/)
 
