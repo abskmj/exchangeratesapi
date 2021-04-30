@@ -3,20 +3,45 @@
 ### Table of Contents
 
 -   [exchange][1]
-    -   [rates][2]
+    -   [symbols][2]
         -   [Parameters][3]
         -   [Examples][4]
-    -   [history][5]
+    -   [rates][5]
         -   [Parameters][6]
         -   [Examples][7]
+    -   [convert][8]
+        -   [Parameters][9]
+        -   [Examples][10]
+    -   [timeseries][11]
+        -   [Parameters][12]
+        -   [Examples][13]
+    -   [fluctuation][14]
+        -   [Parameters][15]
+        -   [Examples][16]
 
 ## exchange
 
-Unofficial node.js client for exchangeratesapi.io
+Javascript client for exchangeratesapi.io
 
 Import the client
 
     const exchange = require('@abskmj/exchangeratesapi')
+
+### symbols
+
+Get exchange symbols
+
+#### Parameters
+
+-   `access_key` **[string][17]** API Key
+
+#### Examples
+
+```javascript
+exchange.symbols({ access_key: '<API_KEY>' })
+```
+
+Returns **Axios.Response** [Response][18] from Axios module
 
 ### rates
 
@@ -24,75 +49,127 @@ Get exchange rates
 
 #### Parameters
 
--   `date` **[string][8]** Date in YYYY-MM-DD format (optional, default `latest`)
--   `base` **[string][8]** Currency against which rates are quoted (optional, default `EUR`)
--   `symbols` **[string][8]?** Comma separated currencies for which rates are needed
+-   `access_key` **[string][17]** API Key
+-   `date` **[string][17]** Date in YYYY-MM-DD format (optional, default `latest`)
+-   `base` **[string][17]** Currency against which rates are quoted (optional, default `EUR`)
+-   `symbols` **[string][17]?** Comma separated currencies for which rates are needed
 
 #### Examples
 
 ```javascript
-exchange.rates()
+// get latest rates
+exchange.rates({ access_key: '<API_KEY>' })
 ```
 
 ```javascript
-exchange.rates({ base: 'USD' })
+// get latest rates for a base symbol
+exchange.rates({ access_key: '<API_KEY>', base: 'USD' })
 ```
 
 ```javascript
-exchange.rates({ symbols: 'USD,GBP' })
+// get latest rates in specific symbols
+exchange.rates({ access_key: '<API_KEY>', symbols: 'USD,GBP' })
 ```
 
 ```javascript
-exchange.rates({ date: '2010-01-12' })
+// get rates on a specific date
+exchange.rates({ access_key: '<API_KEY>', date: '2010-01-12' })
 ```
 
-Returns **Axios.Response** [Response][9] from Axios module
+Returns **Axios.Response** [Response][18] from Axios module
 
-### history
+### convert
+
+Get converted amount
+
+#### Parameters
+
+-   `access_key` **[string][17]** API Key
+-   `from` **[string][17]** Symbol converted from
+-   `to` **[string][17]** Symbol converted to
+-   `amount` **[string][17]** Amount to be converted
+-   `date` **[string][17]?** Date in YYYY-MM-DD format
+
+#### Examples
+
+```javascript
+exchange.timeseries({ access_key: '<API_KEY>', start_at: '2020-01-01', end_at: '2020-03-31' })
+```
+
+Returns **Axios.Response** [Response][18] from Axios module
+
+### timeseries
 
 Get historical exchange rates
 
 #### Parameters
 
--   `start_at` **[string][8]** State date in YYYY-MM-DD format
--   `end_at` **[string][8]** End date in YYYY-MM-DD format
--   `base` **[string][8]** Currency against which rates are quoted (optional, default `EUR`)
--   `symbols` **[string][8]?** Comma separated currencies for which rates are needed
+-   `access_key` **[string][17]** API Key
+-   `start_at` **[string][17]** State date in YYYY-MM-DD format
+-   `end_at` **[string][17]** End date in YYYY-MM-DD format
+-   `base` **[string][17]** Currency against which rates are quoted (optional, default `EUR`)
+-   `symbols` **[string][17]?** Comma separated currencies for which rates are needed
 
 #### Examples
 
 ```javascript
-exchange.history()
+exchange.timeseries({ access_key: '<API_KEY>', start_at: '2020-01-01', end_at: '2020-03-31' })
 ```
+
+Returns **Axios.Response** [Response][18] from Axios module
+
+### fluctuation
+
+Get fluctuations
+
+#### Parameters
+
+-   `access_key` **[string][17]** API Key
+-   `start_at` **[string][17]** State date in YYYY-MM-DD format
+-   `end_at` **[string][17]** End date in YYYY-MM-DD format
+-   `base` **[string][17]** Currency against which rates are quoted (optional, default `EUR`)
+-   `symbols` **[string][17]?** Comma separated currencies for which rates are needed
+
+#### Examples
 
 ```javascript
-exchange.history({ base: 'USD' })
+exchange.fluctuation({ access_key: '<API_KEY>', start_at: '2020-01-01', end_at: '2020-03-31' })
 ```
 
-```javascript
-exchange.history({ symbols: 'USD,GBP' })
-```
-
-```javascript
-exchange.history({ date: '2010-01-12' })
-```
-
-Returns **Axios.Response** [Response][9] from Axios module
+Returns **Axios.Response** [Response][18] from Axios module
 
 [1]: #exchange
 
-[2]: #rates
+[2]: #symbols
 
 [3]: #parameters
 
 [4]: #examples
 
-[5]: #history
+[5]: #rates
 
 [6]: #parameters-1
 
 [7]: #examples-1
 
-[8]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+[8]: #convert
 
-[9]: https://github.com/axios/axios#response-schema
+[9]: #parameters-2
+
+[10]: #examples-2
+
+[11]: #timeseries
+
+[12]: #parameters-3
+
+[13]: #examples-3
+
+[14]: #fluctuation
+
+[15]: #parameters-4
+
+[16]: #examples-4
+
+[17]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+
+[18]: https://github.com/axios/axios#response-schema

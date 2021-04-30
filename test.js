@@ -1,89 +1,101 @@
 const { expect } = require('chai')
 const exchange = require('./index')
 
-describe('Client', function () {
-  it('should return all rates of current date', function () {
-    return exchange.rates().then(response => {
-      expect(response.status).to.equals(200)
-      expect(response.request.url).to.equals('https://api.exchangeratesapi.io/latest')
+const access_key = 'TEST_API_KEY'
+
+describe('exchange', () => {
+  describe('symbols', () => {
+    it('should return symbols', async () => {
+      const response = await exchange.symbols({ access_key })
+      expect(response.request.url).to.equals('http://api.exchangeratesapi.io/v1/symbols?access_key=TEST_API_KEY')
+    })
+
+    it('should error if api key is missing', async ()=> {
+      try{
+        await exchange.symbols()
+        expect.fail();
+      } catch(err){
+        expect(err).to.equal('Required parameter is missing:access_key')
+      }
     })
   })
 
-  it('should return all rates of a particular date', function () {
-    const particular = '2018-01-01'
-    return exchange.rates({ date: particular }).then(response => {
-      expect(response.status).to.equals(200)
-      expect(response.request.url).to.equals(`https://api.exchangeratesapi.io/${particular}`)
+  describe('rates', () => {
+    it('should return latest rates', async () => {
+      const response = await exchange.rates({ access_key })
+      expect(response.request.url).to.equals('http://api.exchangeratesapi.io/v1/latest?access_key=TEST_API_KEY')
+    })
+
+    it('should return latest rates for a base symbol', async () => {
+      const response = await exchange.rates({ access_key, base: 'USD' })
+      expect(response.request.url).to.equals('http://api.exchangeratesapi.io/v1/latest?access_key=TEST_API_KEY&base=USD')
+    })
+
+    it('should return latest rates in specific symbols', async () => {
+      const response = await exchange.rates({ access_key, symbols: 'USD,GBP' })
+      expect(response.request.url).to.equals('http://api.exchangeratesapi.io/v1/latest?access_key=TEST_API_KEY&symbols=USD%2CGBP')
+    })
+
+    it('should return rates on a particular date', async () => {
+      const response = await exchange.rates({ access_key, date: '2020-01-01', base: 'USD', symbols: 'EUR,GBP' })
+      expect(response.request.url).to.equals('http://api.exchangeratesapi.io/v1/2020-01-01?access_key=TEST_API_KEY&base=USD&symbols=EUR%2CGBP')
+    })
+
+    it('should error if api key is missing', async ()=> {
+      try{
+        await exchange.rates()
+        expect.fail();
+      } catch(err){
+        expect(err).to.equal('Required parameter is missing:access_key')
+      }
     })
   })
 
-  it('should return all rates of a particular currency', function () {
-    const particular = 'USD'
-    return exchange.rates({ base: particular }).then(response => {
-      expect(response.status).to.equals(200)
-      expect(response.data.base).to.equals(particular)
+  describe('convert', () => {
+    it('should return coverted amount', async () => {
+      const response = await exchange.convert({ access_key, from: 'USD', to: 'EUR', amount: 1, date: '2020-01-01' })
+      expect(response.request.url).to.equals('http://api.exchangeratesapi.io/v1/convert?access_key=TEST_API_KEY&amount=1&date=2020-01-01&from=USD&to=EUR')
+    })
+
+    it('should error if api key is missing', async ()=> {
+      try{
+        await exchange.convert()
+        expect.fail();
+      } catch(err){
+        expect(err).to.equal('Required parameter is missing:access_key')
+      }
     })
   })
 
-  it('should return particular rates of a particular currency', function () {
-    const particular = 'USD'
-    return exchange.rates({
-      base: particular,
-      symbols: 'EUR,GBP'
-    }).then(response => {
-      expect(response.status).to.equals(200)
-      expect(response.data.base).to.equals(particular)
-      expect(response.data.rates).to.have.property('EUR')
-      expect(response.data.rates).to.not.have.property('AUD')
+  describe('timeseries', () => {
+    it('should return historical rates', async () => {
+      const response = await exchange.timeseries({ access_key, start_at: '2020-01-01', end_at: '2020-03-31', base: 'USD', symbols: 'EUR,GBP' })
+      expect(response.request.url).to.equals('http://api.exchangeratesapi.io/v1/timeseries?access_key=TEST_API_KEY&base=USD&end_at=2020-03-31&start_at=2020-01-01&symbols=EUR%2CGBP')
+    })
+
+    it('should error if api key is missing', async ()=> {
+      try{
+        await exchange.timeseries()
+        expect.fail();
+      } catch(err){
+        expect(err).to.equal('Required parameter is missing:access_key')
+      }
     })
   })
 
-  it('should return historical rates for a time period', function () {
-    const startDate = '2018-01-01'
-    const endDate = '2018-01-15'
-
-    return exchange.history({
-      start_at: startDate,
-      end_at: endDate
-    }).then(response => {
-      expect(response.status).to.equals(200)
-      expect(response.request.url).to.equals(`https://api.exchangeratesapi.io/history?end_at=${endDate}&start_at=${startDate}`)
-      expect(response.data.start_at).to.equals(startDate)
-      expect(response.data.end_at).to.have.equals(endDate)
-    })
-  })
-
-  it('should return historical rates for specific currencies', async () => {
-    const startDate = '2018-01-01'
-    const endDate = '2018-01-15'
-
-    const response = await exchange.history({
-      start_at: startDate,
-      end_at: endDate,
-      symbols: 'ILS,JPY'
+  describe('fluctuation', () => {
+    it('should return fluctuations', async () => {
+      const response = await exchange.fluctuation({ access_key, start_at: '2020-01-01', end_at: '2020-03-31', base: 'USD', symbols: 'EUR,GBP' })
+      expect(response.request.url).to.equals('http://api.exchangeratesapi.io/v1/fluctuation?access_key=TEST_API_KEY&base=USD&end_at=2020-03-31&start_at=2020-01-01&symbols=EUR%2CGBP')
     })
 
-    expect(response.status).to.equals(200)
-    expect(response.request.url).to.equals(`https://api.exchangeratesapi.io/history?end_at=${endDate}&start_at=${startDate}&symbols=ILS%2CJPY`)
-    expect(response.data.start_at).to.equals(startDate)
-    expect(response.data.end_at).to.have.equals(endDate)
-  })
-
-  it('should return historical rate for specific base currency', async () => {
-    const startDate = '2018-01-01'
-    const endDate = '2018-01-15'
-    const base = 'USD'
-
-    const response = await exchange.history({
-      start_at: startDate,
-      end_at: endDate,
-      base
+    it('should error if api key is missing', async ()=> {
+      try{
+        await exchange.fluctuation()
+        expect.fail();
+      } catch(err){
+        expect(err).to.equal('Required parameter is missing:access_key')
+      }
     })
-
-    expect(response.status).to.equals(200)
-    expect(response.request.url).to.equals(`https://api.exchangeratesapi.io/history?base=${base}&end_at=${endDate}&start_at=${startDate}`)
-    expect(response.data.start_at).to.equals(startDate)
-    expect(response.data.end_at).to.have.equals(endDate)
-    expect(response.data.base).to.have.equals(base)
   })
 })

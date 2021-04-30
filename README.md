@@ -1,133 +1,70 @@
-![npm (scoped)](https://img.shields.io/npm/v/@abskmj/exchangeratesapi?label=NPM) ![NPM](https://img.shields.io/npm/l/@abskmj/exchangeratesapi?label=License) ![npm](https://img.shields.io/npm/dt/@abskmj/exchangeratesapi?label=Downloads)
+[![npm (scoped)](https://img.shields.io/npm/v/@abskmj/exchangeratesapi?label=NPM)](https://npmjs.com/package/@abskmj/exchangeratesapi?activeTab=versions)
+[![NPM](https://img.shields.io/npm/l/@abskmj/exchangeratesapi?label=License)](https://github.com/abskmj/exchangeratesapi/blob/master/LICENSE)
+[![npm](https://img.shields.io/npm/dt/@abskmj/exchangeratesapi?label=Downloads)](https://npmjs.com/package/@abskmj/exchangeratesapi)
+[![Coverage Status](https://coveralls.io/repos/github/abskmj/exchangeratesapi/badge.svg?branch=master)](https://coveralls.io/github/abskmj/exchangeratesapi?branch=master)
+[![Sponsor](https://img.shields.io/static/v1?label=Sponsor&message=%E2%9D%A4&color=red&logo=GitHub)](https://github.com/abskmj/exchangeratesapi)
 
-# Node client for exchangeratesapi.io
-Unofficial node.js client for [exchangeratesapi.io](https://exchangeratesapi.io/)
+# Javascript client for exchangeratesapi.io
+Javascript client for [exchangeratesapi.io](https://exchangeratesapi.io/)
 
-> Exchange rates API is a free service for current and historical foreign exchange rates
-published by the [European Central Bank](https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html)
+> Exchangerates API is the most scalable API for current and historical exchange rates with unmatched performance. API documentation at [exchangeratesapi.io](https://exchangeratesapi.io/documentation/)
 
 # Installation
-
-## NPM Registry
 ```bash
-npm install --save @abskmj/exchangeratesapi
+npm install @abskmj/exchangeratesapi
 ```
-
-## Github Package
-This module is also available at [Github Package](https://github.com/abskmj/exchangeratesapi/packages/222586)
 
 
 # Examples
-## Get all the rates on current date
+## Get symbols
 ```javascript
-let exchange = require('@abskmj/exchangeratesapi')
+const exchange = require('@abskmj/exchangeratesapi')
 
-const getLatestRates = async () => {
-    const response = await exchange.rates()
-
-    console.log(response.data)
-
-    /*
-      {
-        rates: {
-          CAD: 1.5243,
-          HKD: 8.4286,
-          ISK: 158.3,
-          ...
-        },
-        base: 'EUR',
-        date: '2020-05-13'
-      }
-    */
-}
+const response = await exchange.symbols({ access_key })
 ```
-## Get the rates on a date
+## Get rates for today
 ```javascript
-let exchange = require('@abskmj/exchangeratesapi')
+const exchange = require('@abskmj/exchangeratesapi')
 
-const getRatesByDate = async (date) => {
-  const response = await exchange.rates({ date })
+const response = await exchange.rates({ access_key })
+```
+## Get rates on a date
+```javascript
+const exchange = require('@abskmj/exchangeratesapi')
 
-  console.log(response.data)
-
-  /*
-    {
-      rates: {
-        CAD: 1.4959,
-        HKD: 11.2301,
-        LVL: 0.7093,
-        ...
-      },
-      base: 'EUR',
-      date: '2010-01-12'
-    }
-  */
-}
+const response = await exchange.rates({ access_key, date })
 ```
 
-## Get the rates of a base currency
+## Convert currency
 ```javascript
-let exchange = require('@abskmj/exchangeratesapi')
+const exchange = require('@abskmj/exchangeratesapi')
 
-const getLatestRatesForBaseCurrency = async(base) => {
-  const response = await exchange.rates({ base })
-
-  console.log(response.data)
-
-  /*
-    {
-      rates: {
-        CAD: 1.4016551724,
-        HKD: 7.7504367816,
-        ISK: 145.5632183908,
-        ...
-      },
-      base: 'USD',
-      date: '2020-05-13'
-    }
-  */
-}
-```
-
-## Get specific rates of a base currency
-```javascript
-let exchange = require('@abskmj/exchangeratesapi')
-
-const getLatestRatesForCurrencies = async (symbols) => {
-  const response = await exchange.rates({ symbols })
-
-  console.log(response.data)
-
-  /*
-    {
-      rates: { USD: 1.0875, GBP: 0.88245 },
-      base: 'EUR',
-      date: '2020-05-13'
-    }
-  */
-}
+const response = await exchange.convert({ access_key, from: 'USD', to: 'EUR', amount: 1, })
 ```
 
 ## Get historical rates
 ```javascript
-let exchange = require('@abskmj/exchangeratesapi')
+const exchange = require('@abskmj/exchangeratesapi')
 
-const getHistoricalRates = async(start_at, end_at) => {
-  const response = await exchange.history({ start_at, end_at})
-
-  console.log(response.data)
-}
+const response = await exchange.timeseries({ access_key, start_at: '2020-01-01', end_at: '2020-03-31'})
 ```
 
-# Works with Promises and Callbacks
+## Get fluctuations
+```javascript
+const exchange = require('@abskmj/exchangeratesapi')
+
+const response = await exchange.fluctuation({ access_key, start_at: '2020-01-01', end_at: '2020-03-31'})
+```
+
+# Works with Promises & Callbacks
 ```javascript
 // promise
-exchange().then(response =>{
+exchange.rates().then(response =>{
     console.log(response.data);
 });
 
 // callback
-exchange({}, (err, response) => {
+exchange.rates({}, (err, response) => {
     if(err) return console.error(err)
 
     console.log(response.data)
@@ -137,5 +74,8 @@ exchange({}, (err, response) => {
 # API Documentation
 Documentation is available at [API.md](API.md)
 
-# Changelog
-Change log is available at [CHANGELOG.md](CHANGELOG.md)
+# Fixes & Improvements
+Head over to the issues tab at [github.com](https://github.com/abskmj/exchangeratesapi/issues) to report a bug or suggest an improvement. Feel free to contribute to the code or documentation by creating a pull request.
+
+# Sponsor / Support
+If you find the project interesting or helpful, please consider sponsoring or supporting it at [github.com](https://github.com/abskmj/exchangeratesapi).
