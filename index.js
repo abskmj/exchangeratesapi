@@ -1,5 +1,5 @@
 /**
- * Unofficial node.js client for exchangeratesapi.io
+ * Javascript client for exchangeratesapi.io
  *
  * Import the client
  * ```
@@ -8,24 +8,48 @@
  * @namespace exchange
  */
 module.exports = require('@abskmj/cligen').getClient({
-  baseUrl: 'https://api.exchangeratesapi.io',
+  baseUrl: 'http://api.exchangeratesapi.io/v1',
   operations: {
+    /**
+     * Get exchange symbols
+     * @function symbols
+     * @memberof exchange
+     * @param {string} access_key API Key
+     * @returns {Axios.Response} [Response](https://github.com/axios/axios#response-schema) from Axios module
+     * @example
+     * exchange.symbols({ access_key: '<API_KEY>' })
+     */
+    symbols: {
+      uri: '/symbols',
+      data: {
+        query: {
+          parameters: [
+            { name: 'access_key', required: true }
+          ]
+        }
+      }
+    },
     /**
      * Get exchange rates
      * @function rates
      * @memberof exchange
+     * @param {string} access_key API Key
      * @param {string} [date=latest] Date in YYYY-MM-DD format
      * @param {string} [base=EUR] Currency against which rates are quoted
      * @param {string} [symbols] Comma separated currencies for which rates are needed
      * @returns {Axios.Response} [Response](https://github.com/axios/axios#response-schema) from Axios module
      * @example
-     * exchange.rates()
+     * // get latest rates
+     * exchange.rates({ access_key: '<API_KEY>' })
      * @example
-     * exchange.rates({ base: 'USD' })
+     * // get latest rates for a base symbol
+     * exchange.rates({ access_key: '<API_KEY>', base: 'USD' })
      * @example
-     * exchange.rates({ symbols: 'USD,GBP' })
+     * // get latest rates in specific symbols
+     * exchange.rates({ access_key: '<API_KEY>', symbols: 'USD,GBP' })
      * @example
-     * exchange.rates({ date: '2010-01-12' })
+     * // get rates on a specific date
+     * exchange.rates({ access_key: '<API_KEY>', date: '2010-01-12' })
      */
     rates: {
       uri: '/{date}',
@@ -38,6 +62,7 @@ module.exports = require('@abskmj/cligen').getClient({
         },
         query: {
           parameters: [
+            { name: 'access_key', required: true },
             { name: 'base' },
             { name: 'symbols' }
           ]
@@ -45,28 +70,51 @@ module.exports = require('@abskmj/cligen').getClient({
       }
     },
     /**
-     * Get historical exchange rates
-     * @function history
+     * Get converted amount
+     * @function convert
      * @memberof exchange
+     * @param {string} access_key API Key
+     * @param {string} from Symbol converted from
+     * @param {string} to Symbol converted to
+     * @param {string} amount Amount to be converted
+     * @param {string} [date] Date in YYYY-MM-DD format
+     * @returns {Axios.Response} [Response](https://github.com/axios/axios#response-schema) from Axios module
+     * @example
+     * exchange.convert({ access_key, from: 'USD', to: 'EUR', amount: 1 })
+     */
+    convert: {
+      uri: '/convert',
+      data: {
+        query: {
+          parameters: [
+            { name: 'access_key', required: true },
+            { name: 'from', required: true },
+            { name: 'to', required: true },
+            { name: 'amount', required: true },
+            { name: 'date' }
+          ]
+        }
+      }
+    },
+    /**
+     * Get historical exchange rates
+     * @function timeseries
+     * @memberof exchange
+     * @param {string} access_key API Key
      * @param {string} start_at State date in YYYY-MM-DD format
      * @param {string} end_at End date in YYYY-MM-DD format
      * @param {string} [base=EUR] Currency against which rates are quoted
      * @param {string} [symbols] Comma separated currencies for which rates are needed
      * @returns {Axios.Response} [Response](https://github.com/axios/axios#response-schema) from Axios module
      * @example
-     * exchange.history()
-     * @example
-     * exchange.history({ base: 'USD' })
-     * @example
-     * exchange.history({ symbols: 'USD,GBP' })
-     * @example
-     * exchange.history({ date: '2010-01-12' })
+     * exchange.timeseries({ access_key: '<API_KEY>', start_at: '2020-01-01', end_at: '2020-03-31' })
      */
-    history: {
-      uri: '/history',
+    timeseries: {
+      uri: '/timeseries',
       data: {
         query: {
           parameters: [
+            { name: 'access_key', required: true },
             { name: 'start_at' },
             { name: 'end_at' },
             { name: 'base' },
@@ -74,6 +122,33 @@ module.exports = require('@abskmj/cligen').getClient({
           ]
         }
       }
+    },
+    /**
+       * Get fluctuations
+       * @function fluctuation
+       * @memberof exchange
+       * @param {string} access_key API Key
+       * @param {string} start_at State date in YYYY-MM-DD format
+       * @param {string} end_at End date in YYYY-MM-DD format
+       * @param {string} [base=EUR] Currency against which rates are quoted
+       * @param {string} [symbols] Comma separated currencies for which rates are needed
+       * @returns {Axios.Response} [Response](https://github.com/axios/axios#response-schema) from Axios module
+       * @example
+       * exchange.fluctuation({ access_key: '<API_KEY>', start_at: '2020-01-01', end_at: '2020-03-31' })
+       */
+    fluctuation: {
+      uri: '/fluctuation',
+      data: {
+        query: {
+          parameters: [
+            { name: 'access_key', required: true },
+            { name: 'start_at', required: true },
+            { name: 'end_at', required: true },
+            { name: 'base' },
+            { name: 'symbols' }
+          ]
+        }
+      }
     }
   }
-})
+}, { mock: process.env.NODE_ENV === 'test' })

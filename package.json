@@ -4,8 +4,9 @@
   "description": "Node client for exchangeratesapi.io",
   "main": "index.js",
   "scripts": {
-    "test": "mocha test.js",
-    "doc": "documentation build index.js -f md > API.md"
+    "test": "cross-env NODE_ENV=test nyc --reporter=lcov --reporter=text mocha test.js",
+    "doc": "documentation build index.js -f md > API.md",
+    "lint": "standard --fix"
   },
   "keywords": [
     "client",
@@ -19,12 +20,12 @@
     "@abskmj/cligen": "1.0.0"
   },
   "devDependencies": {
-    "chai": "^4.1.2",
+    "chai": "^4.3.4",
+    "cross-env": "^7.0.3",
     "documentation": "^13.0.0",
-    "jsdoc": "^3.6.4",
-    "jsdoc-to-markdown": "^5.0.3",
-    "mocha": "^7.1.2",
-    "standard": "^14.3.4"
+    "mocha": "^8.3.2",
+    "nyc": "^15.1.0",
+    "standard": "^16.0.3"
   },
   "standard": {
     "env": [
