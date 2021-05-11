@@ -39,7 +39,7 @@ const response = await exchange.rates({ access_key, date })
 ```javascript
 const exchange = require('@abskmj/exchangeratesapi')
 
-const response = await exchange.convert({ access_key, from: 'USD', to: 'EUR', amount: 1, })
+const response = await exchange.convert({ access_key, from: 'USD', to: 'EUR', amount: 1 })
 ```
 
 ## Get historical rates

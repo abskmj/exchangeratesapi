@@ -80,7 +80,7 @@ module.exports = require('@abskmj/cligen').getClient({
      * @param {string} [date] Date in YYYY-MM-DD format
      * @returns {Axios.Response} [Response](https://github.com/axios/axios#response-schema) from Axios module
      * @example
-     * exchange.timeseries({ access_key: '<API_KEY>', start_at: '2020-01-01', end_at: '2020-03-31' })
+     * exchange.convert({ access_key, from: 'USD', to: 'EUR', amount: 1 })
      */
     convert: {
       uri: '/convert',
@@ -109,7 +109,7 @@ module.exports = require('@abskmj/cligen').getClient({
      * @example
      * exchange.timeseries({ access_key: '<API_KEY>', start_at: '2020-01-01', end_at: '2020-03-31' })
      */
-     timeseries: {
+    timeseries: {
       uri: '/timeseries',
       data: {
         query: {
@@ -136,19 +136,19 @@ module.exports = require('@abskmj/cligen').getClient({
        * @example
        * exchange.fluctuation({ access_key: '<API_KEY>', start_at: '2020-01-01', end_at: '2020-03-31' })
        */
-     fluctuation: {
+    fluctuation: {
       uri: '/fluctuation',
       data: {
         query: {
           parameters: [
             { name: 'access_key', required: true },
-            { name: 'start_at', required:true },
+            { name: 'start_at', required: true },
             { name: 'end_at', required: true },
             { name: 'base' },
             { name: 'symbols' }
           ]
         }
-      } 
+      }
     }
   }
-}, { mock: process.env.NODE_ENV == 'test' })
+}, { mock: process.env.NODE_ENV === 'test' })

@@ -1,7 +1,7 @@
 const { expect } = require('chai')
 const exchange = require('./index')
 
-const access_key = 'TEST_API_KEY'
+const access_key = 'TEST_API_KEY' // eslint-disable-line camelcase
 
 describe('exchange', () => {
   describe('symbols', () => {
@@ -10,11 +10,11 @@ describe('exchange', () => {
       expect(response.request.url).to.equals('http://api.exchangeratesapi.io/v1/symbols?access_key=TEST_API_KEY')
     })
 
-    it('should error if api key is missing', async ()=> {
-      try{
+    it('should error if api key is missing', async () => {
+      try {
         await exchange.symbols()
-        expect.fail();
-      } catch(err){
+        expect.fail()
+      } catch (err) {
         expect(err).to.equal('Required parameter is missing:access_key')
       }
     })
@@ -41,11 +41,11 @@ describe('exchange', () => {
       expect(response.request.url).to.equals('http://api.exchangeratesapi.io/v1/2020-01-01?access_key=TEST_API_KEY&base=USD&symbols=EUR%2CGBP')
     })
 
-    it('should error if api key is missing', async ()=> {
-      try{
+    it('should error if api key is missing', async () => {
+      try {
         await exchange.rates()
-        expect.fail();
-      } catch(err){
+        expect.fail()
+      } catch (err) {
         expect(err).to.equal('Required parameter is missing:access_key')
       }
     })
@@ -57,11 +57,11 @@ describe('exchange', () => {
       expect(response.request.url).to.equals('http://api.exchangeratesapi.io/v1/convert?access_key=TEST_API_KEY&amount=1&date=2020-01-01&from=USD&to=EUR')
     })
 
-    it('should error if api key is missing', async ()=> {
-      try{
+    it('should error if api key is missing', async () => {
+      try {
         await exchange.convert()
-        expect.fail();
-      } catch(err){
+        expect.fail()
+      } catch (err) {
         expect(err).to.equal('Required parameter is missing:access_key')
       }
     })
@@ -73,11 +73,11 @@ describe('exchange', () => {
       expect(response.request.url).to.equals('http://api.exchangeratesapi.io/v1/timeseries?access_key=TEST_API_KEY&base=USD&end_at=2020-03-31&start_at=2020-01-01&symbols=EUR%2CGBP')
     })
 
-    it('should error if api key is missing', async ()=> {
-      try{
+    it('should error if api key is missing', async () => {
+      try {
         await exchange.timeseries()
-        expect.fail();
-      } catch(err){
+        expect.fail()
+      } catch (err) {
         expect(err).to.equal('Required parameter is missing:access_key')
       }
     })
@@ -89,11 +89,11 @@ describe('exchange', () => {
       expect(response.request.url).to.equals('http://api.exchangeratesapi.io/v1/fluctuation?access_key=TEST_API_KEY&base=USD&end_at=2020-03-31&start_at=2020-01-01&symbols=EUR%2CGBP')
     })
 
-    it('should error if api key is missing', async ()=> {
-      try{
+    it('should error if api key is missing', async () => {
+      try {
         await exchange.fluctuation()
-        expect.fail();
-      } catch(err){
+        expect.fail()
+      } catch (err) {
         expect(err).to.equal('Required parameter is missing:access_key')
       }
     })

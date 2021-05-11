@@ -2,22 +2,22 @@
 
 ### Table of Contents
 
--   [exchange][1]
-    -   [symbols][2]
-        -   [Parameters][3]
-        -   [Examples][4]
-    -   [rates][5]
-        -   [Parameters][6]
-        -   [Examples][7]
-    -   [convert][8]
-        -   [Parameters][9]
-        -   [Examples][10]
-    -   [timeseries][11]
-        -   [Parameters][12]
-        -   [Examples][13]
-    -   [fluctuation][14]
-        -   [Parameters][15]
-        -   [Examples][16]
+*   [exchange][1]
+    *   [symbols][2]
+        *   [Parameters][3]
+        *   [Examples][4]
+    *   [rates][5]
+        *   [Parameters][6]
+        *   [Examples][7]
+    *   [convert][8]
+        *   [Parameters][9]
+        *   [Examples][10]
+    *   [timeseries][11]
+        *   [Parameters][12]
+        *   [Examples][13]
+    *   [fluctuation][14]
+        *   [Parameters][15]
+        *   [Examples][16]
 
 ## exchange
 
@@ -33,7 +33,7 @@ Get exchange symbols
 
 #### Parameters
 
--   `access_key` **[string][17]** API Key
+*   `access_key` **[string][17]** API Key
 
 #### Examples
 
@@ -49,10 +49,10 @@ Get exchange rates
 
 #### Parameters
 
--   `access_key` **[string][17]** API Key
--   `date` **[string][17]** Date in YYYY-MM-DD format (optional, default `latest`)
--   `base` **[string][17]** Currency against which rates are quoted (optional, default `EUR`)
--   `symbols` **[string][17]?** Comma separated currencies for which rates are needed
+*   `access_key` **[string][17]** API Key
+*   `date` **[string][17]** Date in YYYY-MM-DD format (optional, default `latest`)
+*   `base` **[string][17]** Currency against which rates are quoted (optional, default `EUR`)
+*   `symbols` **[string][17]?** Comma separated currencies for which rates are needed
 
 #### Examples
 
@@ -84,16 +84,16 @@ Get converted amount
 
 #### Parameters
 
--   `access_key` **[string][17]** API Key
--   `from` **[string][17]** Symbol converted from
--   `to` **[string][17]** Symbol converted to
--   `amount` **[string][17]** Amount to be converted
--   `date` **[string][17]?** Date in YYYY-MM-DD format
+*   `access_key` **[string][17]** API Key
+*   `from` **[string][17]** Symbol converted from
+*   `to` **[string][17]** Symbol converted to
+*   `amount` **[string][17]** Amount to be converted
+*   `date` **[string][17]?** Date in YYYY-MM-DD format
 
 #### Examples
 
 ```javascript
-exchange.timeseries({ access_key: '<API_KEY>', start_at: '2020-01-01', end_at: '2020-03-31' })
+exchange.convert({ access_key, from: 'USD', to: 'EUR', amount: 1 })
 ```
 
 Returns **Axios.Response** [Response][18] from Axios module
@@ -104,11 +104,11 @@ Get historical exchange rates
 
 #### Parameters
 
--   `access_key` **[string][17]** API Key
--   `start_at` **[string][17]** State date in YYYY-MM-DD format
--   `end_at` **[string][17]** End date in YYYY-MM-DD format
--   `base` **[string][17]** Currency against which rates are quoted (optional, default `EUR`)
--   `symbols` **[string][17]?** Comma separated currencies for which rates are needed
+*   `access_key` **[string][17]** API Key
+*   `start_at` **[string][17]** State date in YYYY-MM-DD format
+*   `end_at` **[string][17]** End date in YYYY-MM-DD format
+*   `base` **[string][17]** Currency against which rates are quoted (optional, default `EUR`)
+*   `symbols` **[string][17]?** Comma separated currencies for which rates are needed
 
 #### Examples
 
@@ -124,11 +124,11 @@ Get fluctuations
 
 #### Parameters
 
--   `access_key` **[string][17]** API Key
--   `start_at` **[string][17]** State date in YYYY-MM-DD format
--   `end_at` **[string][17]** End date in YYYY-MM-DD format
--   `base` **[string][17]** Currency against which rates are quoted (optional, default `EUR`)
--   `symbols` **[string][17]?** Comma separated currencies for which rates are needed
+*   `access_key` **[string][17]** API Key
+*   `start_at` **[string][17]** State date in YYYY-MM-DD format
+*   `end_at` **[string][17]** End date in YYYY-MM-DD format
+*   `base` **[string][17]** Currency against which rates are quoted (optional, default `EUR`)
+*   `symbols` **[string][17]?** Comma separated currencies for which rates are needed
 
 #### Examples
 
